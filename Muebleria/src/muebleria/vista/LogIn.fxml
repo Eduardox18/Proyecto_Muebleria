@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="322.0" prefWidth="245.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="72.0" layoutY="32.0" prefHeight="315.0" prefWidth="300.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../recursos/Usuario.png" />
+               </image>
+            </ImageView>
+            <Pane prefHeight="18.0" prefWidth="215.0">
+               <children>
+                  <Label text="Usuario:" />
+               </children>
+            </Pane>
+            <TextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="106.0" />
+            <Pane prefHeight="18.0" prefWidth="215.0">
+               <children>
+                  <Label text="Contraseña:" />
+               </children>
+            </Pane>
+            <PasswordField prefHeight="26.0" prefWidth="192.0" />
+            <Pane prefHeight="18.0" prefWidth="200.0">
+               <children>
+                  <Hyperlink text="¿Nuevo usuario?" />
+               </children>
+            </Pane>
+            <Button mnemonicParsing="false" text="Log In" />
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
