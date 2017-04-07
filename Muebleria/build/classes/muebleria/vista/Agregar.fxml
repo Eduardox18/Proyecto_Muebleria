@@ -25,6 +25,9 @@
                       <TableColumn minWidth="0.0" prefWidth="140.0" text="Clave" />
                         <TableColumn minWidth="0.0" prefWidth="139.0" text="Existencia" />
                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
                </children>
             </AnchorPane>

@@ -6,9 +6,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="427.0" fitWidth="649.0" layoutX="26.0" layoutY="-3.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="26.97918701171875" AnchorPane.topAnchor="-3.0">
+      <ImageView fitHeight="427.0" fitWidth="649.0" layoutX="52.0" layoutY="-3.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="51.97918701171875" AnchorPane.topAnchor="-3.0">
          <image>
-            <Image url="@../../recursos/Logo2.png" />
+            <Image url="@../../recursos/Logo.png" />
          </image>
       </ImageView>
    </children>
