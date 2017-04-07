@@ -18,7 +18,7 @@ USE `muebleria` ;
 -- Table `muebleria`.`Almacen`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `muebleria`.`Almacen` (
-  `idAlmacen` INT NOT NULL,
+  `idAlmacen` INT NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idAlmacen`),
   UNIQUE INDEX `idAlmacen_UNIQUE` (`idAlmacen` ASC))
 ENGINE = InnoDB;
@@ -28,11 +28,11 @@ ENGINE = InnoDB;
 -- Table `muebleria`.`Mueble`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `muebleria`.`Mueble` (
-  `idMueble` INT NOT NULL,
-  `nombreMueble` VARCHAR(45) NULL,
-  `precioMueble` DOUBLE NULL,
+  `idMueble` INT NOT NULL AUTO_INCREMENT,
+  `nombreMueble` VARCHAR(45) NOT NULL,
+  `precioMueble` DOUBLE NOT NULL,
   `tipoMueble` VARCHAR(45) NULL,
-  `stockMinimoMueble` INT NULL,
+  `stockMinimoMueble` INT NOT NULL,
   `baseMueble` VARCHAR(45) NULL,
   `alturaMueble` VARCHAR(45) NULL,
   `profundidadMueble` VARCHAR(45) NULL,
@@ -46,11 +46,11 @@ ENGINE = InnoDB;
 -- Table `muebleria`.`Mueble`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `muebleria`.`Mueble` (
-  `idMueble` INT NOT NULL,
-  `nombreMueble` VARCHAR(45) NULL,
-  `precioMueble` DOUBLE NULL,
+  `idMueble` INT NOT NULL AUTO_INCREMENT,
+  `nombreMueble` VARCHAR(45) NOT NULL,
+  `precioMueble` DOUBLE NOT NULL,
   `tipoMueble` VARCHAR(45) NULL,
-  `stockMinimoMueble` INT NULL,
+  `stockMinimoMueble` INT NOT NULL,
   `baseMueble` VARCHAR(45) NULL,
   `alturaMueble` VARCHAR(45) NULL,
   `profundidadMueble` VARCHAR(45) NULL,
@@ -67,7 +67,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `muebleria`.`Almacen-Guarda-Mueble` (
   `Almacen_idAlmacen` INT NOT NULL,
   `Mueble_idMueble` INT NOT NULL,
-  `existenciasAlmacen` INT NULL,
+  `existenciasAlmacen` INT NOT NULL,
   INDEX `fk_Almacen-Guarda-Mueble_Almacen_idx` (`Almacen_idAlmacen` ASC),
   INDEX `fk_Almacen-Guarda-Mueble_Mueble1_idx` (`Mueble_idMueble` ASC),
   CONSTRAINT `fk_Almacen-Guarda-Mueble_Almacen`
@@ -87,8 +87,9 @@ ENGINE = InnoDB;
 -- Table `muebleria`.`Usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `muebleria`.`Usuario` (
-  `idUsuario` INT NOT NULL,
-  `contrasenaUsuario` VARCHAR(45) NULL,
+  `idUsuario` INT NOT NULL AUTO_INCREMENT,
+  `nombreUsuario` VARCHAR(45) NOT NULL,
+  `contrasenaUsuario` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idUsuario`),
   UNIQUE INDEX `idUsuario_UNIQUE` (`idUsuario` ASC))
 ENGINE = InnoDB;
@@ -98,19 +99,19 @@ ENGINE = InnoDB;
 -- Table `muebleria`.`Empleado`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `muebleria`.`Empleado` (
-  `idEmpleado` INT NOT NULL,
+  `idEmpleado` INT NOT NULL AUTO_INCREMENT,
   `Usuario_idUsuario` INT NOT NULL,
   `nombreEmpleado` VARCHAR(45) NOT NULL,
-  `apPaterno` VARCHAR(45) NOT NULL,
-  `apMaterno` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
-  `calle` VARCHAR(45) NULL,
-  `estado` VARCHAR(45) NULL,
-  `ciudad` VARCHAR(45) NULL,
-  `colonia` VARCHAR(45) NULL,
-  `telCasaEmpleado` INT NULL,
-  `telCelularEmpleado` INT NULL,
-  `fechaNac` DATE NULL,
+  `apPaternoEmpleado` VARCHAR(45) NOT NULL,
+  `apMaternoEmpleado` VARCHAR(45) NULL,
+  `emailEmpleado` VARCHAR(45) NOT NULL,
+  `calleEmpleado` VARCHAR(45) NOT NULL,
+  `estadoEmpleado` VARCHAR(45) NOT NULL,
+  `ciudadEmpleado` VARCHAR(45) NOT NULL,
+  `coloniaEmpleado` VARCHAR(45) NOT NULL,
+  `telCasaEmpleado` INT NOT NULL,
+  `telCelularEmpleado` INT NOT NULL,
+  `fechaNacEmpleado` DATE NOT NULL,
   PRIMARY KEY (`idEmpleado`),
   UNIQUE INDEX `idEmpleado_UNIQUE` (`idEmpleado` ASC),
   INDEX `fk_Empleado_Usuario1_idx` (`Usuario_idUsuario` ASC),
@@ -126,18 +127,18 @@ ENGINE = InnoDB;
 -- Table `muebleria`.`Cliente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `muebleria`.`Cliente` (
-  `idCliente` INT NOT NULL,
+  `idCliente` INT NOT NULL AUTO_INCREMENT,
   `nombreCliente` VARCHAR(45) NOT NULL,
-  `apPaterno` VARCHAR(45) NOT NULL,
-  `apMaterno` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
-  `calle` VARCHAR(45) NULL,
-  `estado` VARCHAR(45) NULL,
-  `ciudad` VARCHAR(45) NULL,
-  `colonia` VARCHAR(45) NULL,
+  `apPaternoCliente` VARCHAR(45) NOT NULL,
+  `apMaternoCliente` VARCHAR(45) NULL,
+  `emailCliente` VARCHAR(45) NOT NULL,
+  `calleCliente` VARCHAR(45) NOT NULL,
+  `coloniaCliente` VARCHAR(45) NOT NULL,
+  `estadoCliente` VARCHAR(45) NOT NULL,
+  `ciudadCliente` VARCHAR(45) NOT NULL,
   `telCasaCliente` INT NULL,
-  `telCelularCliente` INT NULL,
-  `fechaNac` DATE NULL,
+  `telCelularCliente` INT NOT NULL,
+  `fechaNacCliente` DATE NULL,
   UNIQUE INDEX `idCliente_UNIQUE` (`idCliente` ASC),
   PRIMARY KEY (`idCliente`))
 ENGINE = InnoDB;
@@ -147,8 +148,8 @@ ENGINE = InnoDB;
 -- Table `muebleria`.`VentaContado`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `muebleria`.`VentaContado` (
-  `idVentaContado` INT NOT NULL,
-  `fechaVentaContado` DATE NULL,
+  `idVentaContado` INT NOT NULL AUTO_INCREMENT,
+  `fechaVentaContado` DATE NOT NULL,
   `Empleado_idEmpleado` INT NOT NULL,
   `Cliente_idCliente` INT NOT NULL,
   PRIMARY KEY (`idVentaContado`),
@@ -196,19 +197,19 @@ ENGINE = InnoDB;
 -- Table `muebleria`.`Administrador`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `muebleria`.`Administrador` (
-  `idAdministrador` INT NOT NULL,
+  `idAdministrador` INT NOT NULL AUTO_INCREMENT,
   `Usuario_idUsuario` INT NOT NULL,
   `nombreAdministrador` VARCHAR(45) NOT NULL,
-  `apPaterno` VARCHAR(45) NULL,
-  `apMaterno` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
-  `calle` VARCHAR(45) NULL,
-  `estado` VARCHAR(45) NULL,
-  `ciudad` VARCHAR(45) NULL,
-  `colonia` VARCHAR(45) NULL,
-  `telCasaAdmnistrador` INT NULL,
-  `telCelularAdministrador` INT NULL,
-  `fechaNac` DATE NULL,
+  `apPaternoAdministrador` VARCHAR(45) NOT NULL,
+  `apMaternoAdministrador` VARCHAR(45) NULL,
+  `emailAdministrador` VARCHAR(45) NOT NULL,
+  `calleAdministrador` VARCHAR(45) NOT NULL,
+  `coloniaAdministrador` VARCHAR(45) NOT NULL,
+  `estadoAdministrador` VARCHAR(45) NOT NULL,
+  `ciudadAdministrador` VARCHAR(45) NOT NULL,
+  `telCasaAdmnistrador` INT NOT NULL,
+  `telCelularAdministrador` INT NOT NULL,
+  `fechaNacAdministrador` DATE NOT NULL,
   PRIMARY KEY (`idAdministrador`),
   UNIQUE INDEX `idAdministrador_UNIQUE` (`idAdministrador` ASC),
   INDEX `fk_Administrador_Usuario1_idx` (`Usuario_idUsuario` ASC),
@@ -224,14 +225,14 @@ ENGINE = InnoDB;
 -- Table `muebleria`.`Proveedor`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `muebleria`.`Proveedor` (
-  `idProveedor` INT NOT NULL,
-  `razonSocialProveedor` VARCHAR(45) NULL,
-  `emailProveedor` VARCHAR(45) NULL,
-  `calleProveedor` VARCHAR(45) NULL,
-  `coloniaProveedor` VARCHAR(45) NULL,
-  `ciudadProveedor` VARCHAR(45) NULL,
-  `estadoProveedor` VARCHAR(45) NULL,
-  `telefonoProveedor` VARCHAR(45) NULL,
+  `idProveedor` INT NOT NULL AUTO_INCREMENT,
+  `razonSocialProveedor` VARCHAR(45) NOT NULL,
+  `emailProveedor` VARCHAR(45) NOT NULL,
+  `calleProveedor` VARCHAR(45) NOT NULL,
+  `coloniaProveedor` VARCHAR(45) NOT NULL,
+  `ciudadProveedor` VARCHAR(45) NOT NULL,
+  `estadoProveedor` VARCHAR(45) NOT NULL,
+  `telefonoProveedor` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idProveedor`),
   UNIQUE INDEX `idProveedor_UNIQUE` (`idProveedor` ASC))
 ENGINE = InnoDB;
@@ -280,7 +281,7 @@ ENGINE = InnoDB;
 -- Table `muebleria`.`Apartado`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `muebleria`.`Apartado` (
-  `idApartado` INT NOT NULL,
+  `idApartado` INT NOT NULL AUTO_INCREMENT,
   `fechaApartado` DATE NULL,
   `anticipoApartado` DOUBLE NULL,
   `Cliente_idCliente` INT NOT NULL,
@@ -323,10 +324,10 @@ ENGINE = InnoDB;
 -- Table `muebleria`.`VentaCredito`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `muebleria`.`VentaCredito` (
-  `idVentaCredito` INT NOT NULL,
-  `ventaCreditoPagada` TINYINT(1) NULL,
-  `montoPagado` DOUBLE NULL,
-  `fechaVentaCredito` DATE NULL,
+  `idVentaCredito` INT NOT NULL AUTO_INCREMENT,
+  `ventaCreditoPagada` TINYINT(1) NOT NULL,
+  `montoPagado` DOUBLE NOT NULL,
+  `fechaVentaCredito` DATE NOT NULL,
   `Empleado_idEmpleado` INT NOT NULL,
   `Cliente_idCliente` INT NOT NULL,
   PRIMARY KEY (`idVentaCredito`),
@@ -416,9 +417,9 @@ ENGINE = InnoDB;
 -- Table `muebleria`.`PagoCredito`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `muebleria`.`PagoCredito` (
-  `idPagoCredito` INT NOT NULL,
-  `montoPago` DOUBLE NULL,
-  `fechaPago` DATE NULL,
+  `idPagoCredito` INT NOT NULL AUTO_INCREMENT,
+  `montoPago` DOUBLE NOT NULL,
+  `fechaPago` DATE NOT NULL,
   `Cliente_idCliente` INT NOT NULL,
   PRIMARY KEY (`idPagoCredito`),
   UNIQUE INDEX `idPagoCredito_UNIQUE` (`idPagoCredito` ASC),
@@ -481,10 +482,10 @@ ENGINE = InnoDB;
 -- Table `muebleria`.`Cuenta`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `muebleria`.`Cuenta` (
-  `idCuenta` INT NOT NULL,
-  `numCuenta` VARCHAR(45) NULL,
-  `creditoDisponible` DOUBLE NULL,
-  `creditoUtilizado` DOUBLE NULL,
+  `idCuenta` INT NOT NULL AUTO_INCREMENT,
+  `numCuenta` VARCHAR(45) NOT NULL,
+  `creditoDisponible` DOUBLE NOT NULL,
+  `creditoUtilizado` DOUBLE NOT NULL,
   `Cliente_idCliente` INT NOT NULL,
   PRIMARY KEY (`idCuenta`),
   UNIQUE INDEX `idCuenta_UNIQUE` (`idCuenta` ASC),
@@ -573,19 +574,6 @@ CREATE TABLE IF NOT EXISTS `muebleria`.`Persona_copy1` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-USE `muebleria` ;
-
--- -----------------------------------------------------
--- Placeholder table for view `muebleria`.`view1`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `muebleria`.`view1` (`id` INT);
-
--- -----------------------------------------------------
--- View `muebleria`.`view1`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `muebleria`.`view1`;
-USE `muebleria`;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
