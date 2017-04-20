@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import muebleria.modelo.ControladorVentas;
 
 
 public class Main extends Application
@@ -16,7 +17,6 @@ public class Main extends Application
   private Stage primaryStage;
   private BorderPane menuLayout;
   
-  public Main() {}
   
   @Override
   public void start(Stage primaryStage)
@@ -25,7 +25,7 @@ public class Main extends Application
     this.primaryStage.setTitle("S.O.F.A");
     
     iniciarMenu();
-    showInicio();
+    showVentas();
   }
   
   public void iniciarMenu() {
@@ -42,13 +42,16 @@ public class Main extends Application
     } 
   }
   
-  public void showInicio() {
+  public void showVentas() {
     try {
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(Main.class.getResource("vista/Inicio.fxml"));
+      loader.setLocation(Main.class.getResource("vista/Venta.fxml"));
       AnchorPane vistaInicio = (AnchorPane)loader.load();
       
       menuLayout.setCenter(vistaInicio);
+      
+      ControladorVentas controlador = loader.getController();
+      controlador.setMainApp(this);
     } catch (IOException ex) {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }

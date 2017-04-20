@@ -6,17 +6,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
-
-
-
-
-
-
-
-
-
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Mueble
 {
@@ -25,55 +16,56 @@ public class Mueble
   private DoubleProperty precioMueble;
   private StringProperty tipoMueble;
   private IntegerProperty stockMinimoMueble;
+  public static ObservableList<Mueble> listaVenta = FXCollections.observableArrayList();
   
   public Mueble() {}
   
   public Mueble(Integer idMueble, String nombreMueble, Double precioMueble, String tipoMueble, Integer stockMinimoMueble)
   {
-    this.idMueble = new SimpleIntegerProperty(idMueble.intValue());
+    this.idMueble = new SimpleIntegerProperty(idMueble);
     this.nombreMueble = new SimpleStringProperty(nombreMueble);
-    this.precioMueble = new SimpleDoubleProperty(precioMueble.doubleValue());
+    this.precioMueble = new SimpleDoubleProperty(precioMueble);
     this.tipoMueble = new SimpleStringProperty(tipoMueble);
-    this.stockMinimoMueble = new SimpleIntegerProperty(stockMinimoMueble.intValue());
+    this.stockMinimoMueble = new SimpleIntegerProperty(stockMinimoMueble);
   }
   
   public Integer getIdMueble() {
-    return Integer.valueOf(idMueble.get());
+    return idMueble.get();
   }
   
   public void setIdMueble(Integer idMueble) {
-    this.idMueble.set(idMueble.intValue());
+    this.idMueble = new SimpleIntegerProperty(idMueble);
   }
   
-  public String getNombreMueble() {
-    return (String)nombreMueble.get();
+  public StringProperty getNombreMueble() {
+    return nombreMueble;
   }
   
   public void setNombreMueble(String nombreMueble) {
-    this.nombreMueble.set(nombreMueble);
+    this.nombreMueble = new SimpleStringProperty(nombreMueble);
   }
   
-  public Double getPrecioMueble() {
-    return Double.valueOf(precioMueble.get());
+  public DoubleProperty getPrecioMueble() {
+    return precioMueble;
   }
   
   public void setPrecioMubele(Double precioMueble) {
-    this.precioMueble.set(precioMueble.doubleValue());
+    this.precioMueble = new SimpleDoubleProperty(precioMueble);
   }
   
-  public String getTipoMueble() {
-    return (String)tipoMueble.get();
+  public StringProperty getTipoMueble() {
+    return tipoMueble;
   }
   
   public void setTipoMueble(String tipoMueble) {
-    this.tipoMueble.set(tipoMueble);
+    this.tipoMueble = new SimpleStringProperty(tipoMueble);
   }
   
-  public Integer getStockMinimoMueble() {
-    return Integer.valueOf(stockMinimoMueble.get());
+  public IntegerProperty getStockMinimoMueble() {
+    return stockMinimoMueble;
   }
   
   public void setStockMinimoMueble(Integer stockMinimoMueble) {
-    this.stockMinimoMueble.set(stockMinimoMueble.intValue());
+    this.stockMinimoMueble = new SimpleIntegerProperty(stockMinimoMueble);
   }
 }
