@@ -1,4 +1,4 @@
-package muebleria.modelo;
+package muebleriaswing.conexion;
 
 import java.sql.*;
 
