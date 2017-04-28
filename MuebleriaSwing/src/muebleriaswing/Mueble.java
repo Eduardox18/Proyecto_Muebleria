@@ -5,8 +5,6 @@
  */
 package muebleriaswing;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author José Andrés Domínguez González
@@ -21,12 +19,13 @@ public class Mueble {
   private double baseMueble;
   private double profundidadMueble;
   private int stockMinimoMueble;
+  private int cantidadMueble;
   
   public Mueble () {}
   
   public Mueble (String nombreMueble, String tipoMueble, double precioMueble, String materialMueble,
       String colorMueble, double alturaMueble, double baseMueble, double profundidadMueble, 
-      int stockMinimoMueble) {
+      int stockMinimoMueble, int cantidadMueble) {
     
     this.nombreMueble = nombreMueble;
     this.tipoMueble = tipoMueble;
@@ -37,6 +36,7 @@ public class Mueble {
     this.baseMueble = baseMueble;
     this.profundidadMueble = profundidadMueble;
     this.stockMinimoMueble = stockMinimoMueble;
+    this.cantidadMueble = cantidadMueble;
   }
 
   public String getNombreMueble() {
@@ -74,6 +74,10 @@ public class Mueble {
   public int getStockMinimoMueble() {
     return stockMinimoMueble;
   }
+  
+  public int getCantidadMueble() {
+    return cantidadMueble;
+  }
 
   public void setNombreMueble(String nombreMueble) {
     this.nombreMueble = nombreMueble;
@@ -109,6 +113,10 @@ public class Mueble {
 
   public void setStockMinimoMueble(int stockMinimoMueble) {
     this.stockMinimoMueble = stockMinimoMueble;
+  }
+  
+  public void setCantidadMueble(int cantidadMueble) {
+    this.cantidadMueble = cantidadMueble;
   }
   
   
