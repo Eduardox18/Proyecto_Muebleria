@@ -206,9 +206,12 @@ public class Administrar extends javax.swing.JFrame {
 
     public void eliminarMueble() throws ClassNotFoundException, SQLException {
         int idMueble = 0;
-
-        sQuery = "SELECT idMueble FROM Mueble WHERE nombreMueble = '"
-                + nombreMueble + "' AND colorMueble = '" + colorMueble + "';";
+        int existenciasMueble = 0;
+        
+        sQuery = "SELECT Mueble.idMueble, AlmacenGuardaMueble.existenciasAlmacen "
+                + "FROM Mueble, AlmacenGuardaMueble WHERE Mueble.idMueble = "
+                + "AlmacenGuardaMueble.Mueble_idMueble AND Mueble.nombreMueble "
+                + "= '" + nombreMueble +"' AND Mueble.colorMueble = '" + colorMueble + "';";
 
         try {
             con = new Conexion().connection();
@@ -217,6 +220,7 @@ public class Administrar extends javax.swing.JFrame {
 
             if (rs != null && rs.next()) {
                 idMueble = rs.getInt("idMueble");
+                existenciasMueble = rs.getInt("existenciasAlmacen");
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Administrar.class.getName()).log(Level.SEVERE, null, ex);
@@ -224,7 +228,7 @@ public class Administrar extends javax.swing.JFrame {
             con.close();
         }
 
-        if (idMueble == 0) {
+        if (existenciasMueble == 0) {
             sQuery = "DELETE FROM AlmacenGuardaMueble WHERE Mueble_idMueble "
                     + "= " + idMueble + ";";
             update(sQuery);
