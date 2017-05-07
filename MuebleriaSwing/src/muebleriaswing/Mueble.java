@@ -5,6 +5,8 @@
  */
 package muebleriaswing;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author José Andrés Domínguez González
@@ -20,6 +22,7 @@ public class Mueble {
   private double profundidadMueble;
   private int stockMinimoMueble;
   private int cantidadMueble;
+  public static ArrayList<Mueble> listaMueble = new ArrayList<>();
   
   public Mueble () {}
   

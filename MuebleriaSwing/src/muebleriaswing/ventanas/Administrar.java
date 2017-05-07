@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import muebleriaswing.Mueble;
 import muebleriaswing.conexion.Conexion;
 
@@ -24,9 +26,8 @@ import muebleriaswing.conexion.Conexion;
  */
 public class Administrar extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Administrar
-     */
+    private DefaultTableModel modelo;
+    private TableRowSorter<TableModel> elQueOrdena;
     static Connection con = null;
     static Statement s = null;
     static ResultSet rs = null;
@@ -44,9 +45,63 @@ public class Administrar extends javax.swing.JFrame {
     public Administrar() {
         initComponents();
         this.setLocationRelativeTo(null);
+        modeloTabla();
+        jTable1.setModel(modelo);
+        jTable1.setRowSorter(elQueOrdena);
         rellenarTabla(inicial);
     }
+    
+    /**
+     * 
+     * Define el modelo de la tabla y un Sorter para ordenar los datos
+     */
+    public void modeloTabla() {
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Tipo");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Material");
+        modelo.addColumn("Color");
+        modelo.addColumn("Alto");
+        modelo.addColumn("Ancho");
+        modelo.addColumn("Profundidad");
+        modelo.addColumn("Stock mínimo");
+        modelo.addColumn("Existencia");
+        modelo.setRowCount(0);
+        
+        elQueOrdena = new TableRowSorter<>(modelo);
+    }
+    
+    /**
+     * 
+     * Agrega los datos de los Muebles a la tabla
+     * @param query La consulta que se utilizará para conseguir los datos de los
+     * muebles
+     */
+    public void rellenarTabla(String query) {
+        
+        ArrayList<Mueble> listaMuebles = obtenerDatos(query);
+        Object rowData[] = new Object[10];
+        for (int i = 0; i < listaMuebles.size(); i++) {
+            rowData[0] = listaMuebles.get(i).getNombreMueble();
+            rowData[1] = listaMuebles.get(i).getTipoMueble();
+            rowData[2] = listaMuebles.get(i).getPrecioMueble();
+            rowData[3] = listaMuebles.get(i).getMaterialMueble();
+            rowData[4] = listaMuebles.get(i).getColorMueble();
+            rowData[5] = listaMuebles.get(i).getAlturaMueble();
+            rowData[6] = listaMuebles.get(i).getBaseMueble();
+            rowData[7] = listaMuebles.get(i).getProfundidadMueble();
+            rowData[8] = listaMuebles.get(i).getStockMinimoMueble();
+            rowData[9] = listaMuebles.get(i).getCantidadMueble();
+            modelo.addRow(rowData);
+        }
+    }
 
+    
+    /**
+     * 
+     * Limpia todos los campos de la pestaña agregar
+     */
     public void limpiar() {
         nombretf.setText("");
         tipotf.setText("");
@@ -61,6 +116,11 @@ public class Administrar extends javax.swing.JFrame {
         combomedida.setSelectedIndex(0);
     }
 
+    /**
+     * Realiza una consulta y obtiene los datos de los Muebles
+     * @param query La consulta que se utilizará para los muebles
+     * @return ArrayList de objetos Mueble
+     */
     public ArrayList<Mueble> obtenerDatos(String query) {
         ArrayList<Mueble> lista = new ArrayList<>();
         try {
@@ -89,26 +149,12 @@ public class Administrar extends javax.swing.JFrame {
         return lista;
     }
 
-    public void rellenarTabla(String query) {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-        ArrayList<Mueble> listaMuebles = obtenerDatos(query);
-        Object rowData[] = new Object[10];
-        for (int i = 0; i < listaMuebles.size(); i++) {
-            rowData[0] = listaMuebles.get(i).getNombreMueble();
-            rowData[1] = listaMuebles.get(i).getTipoMueble();
-            rowData[2] = listaMuebles.get(i).getPrecioMueble();
-            rowData[3] = listaMuebles.get(i).getMaterialMueble();
-            rowData[4] = listaMuebles.get(i).getColorMueble();
-            rowData[5] = listaMuebles.get(i).getAlturaMueble();
-            rowData[6] = listaMuebles.get(i).getBaseMueble();
-            rowData[7] = listaMuebles.get(i).getProfundidadMueble();
-            rowData[8] = listaMuebles.get(i).getStockMinimoMueble();
-            rowData[9] = listaMuebles.get(i).getCantidadMueble();
-            model.addRow(rowData);
-        }
-    }
-
+    
+    /**
+     * Se utiliza para poder filtrar los mubles en tiempo real
+     * @param filtro La palabra "Filtro" que se utiliza para la consulta
+     * @return Consulta con la palbra para filtrar
+     */
     public String filtrado(String filtro) {
         return "SELECT Mueble.nombreMueble, Mueble.tipoMueble, Mueble.precioMueble, "
                 + "Mueble.materialMueble, Mueble.colorMueble, Mueble.alturaMueble, "
