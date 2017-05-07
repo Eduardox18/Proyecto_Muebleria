@@ -6,6 +6,7 @@
 package muebleriaswing;
 
 import muebleriaswing.ventanas.Administrar;
+import muebleriaswing.ventanas.Inicial;
 
 /**
  *
@@ -17,7 +18,7 @@ public class MuebleriaSwing {
    * @param args the command line arguments
    */
   public static void main(String[] args) {
-      Administrar admin = new Administrar();
-      admin.setVisible(true);
+      Inicial inicial = new Inicial();
+      inicial.setVisible(true);
   }  
 }

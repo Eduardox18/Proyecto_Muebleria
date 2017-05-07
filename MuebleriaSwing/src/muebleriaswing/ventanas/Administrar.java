@@ -43,6 +43,7 @@ public class Administrar extends javax.swing.JFrame {
 
     public Administrar() {
         initComponents();
+        this.setLocationRelativeTo(null);
         rellenarTabla(inicial);
     }
 
@@ -719,7 +720,9 @@ public class Administrar extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarActionPerformed
 
     private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
-
+        Inicial inicio = new Inicial();
+        inicio.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_regresarActionPerformed
 
   private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -731,7 +734,9 @@ public class Administrar extends javax.swing.JFrame {
   }//GEN-LAST:event_jTable1PropertyChange
 
     private void bRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRegresarActionPerformed
-
+        Inicial inicio = new Inicial();
+        inicio.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_bRegresarActionPerformed
 
   private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
