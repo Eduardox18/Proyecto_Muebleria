@@ -3,6 +3,9 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+      <Color id="Cursor de Mano"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -34,10 +37,20 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+      <Properties>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Cursor Por defecto"/>
+        </Property>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="jPanel4">
+          <Properties>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor Por defecto"/>
+            </Property>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Agregar">
@@ -55,7 +68,7 @@
                           <Component id="jPanel3" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jPanel1" max="32767" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
                               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -88,6 +101,9 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Cursor Por defecto"/>
+                </Property>
               </Properties>
 
               <Layout>
@@ -114,7 +130,7 @@
                               </Group>
                               <Component id="combomedida" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="88" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -234,6 +250,9 @@
                     <TitledBorder/>
                   </Border>
                 </Property>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Cursor Por defecto"/>
+                </Property>
               </Properties>
 
               <Layout>
@@ -273,7 +292,7 @@
                     <Property name="text" type="java.lang.String" value="Limpiar"/>
                     <Property name="toolTipText" type="java.lang.String" value=""/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Cursor Por defecto"/>
+                      <Color id="Cursor de Mano"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -287,7 +306,7 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Agregar"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Cursor Por defecto"/>
+                      <Color id="Cursor de Mano"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -301,7 +320,7 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Regresar"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Cursor Por defecto"/>
+                      <Color id="Cursor de Mano"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -319,6 +338,9 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Cursor Por defecto"/>
+                </Property>
               </Properties>
 
               <Layout>
@@ -335,7 +357,7 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="tipotf" pref="178" max="32767" attributes="0"/>
+                                      <Component id="tipotf" pref="157" max="32767" attributes="0"/>
                                       <Component id="preciotf" max="32767" attributes="0"/>
                                       <Component id="nombretf" max="32767" attributes="0"/>
                                   </Group>
@@ -464,7 +486,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" pref="707" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="725" max="32767" attributes="0"/>
                           <Component id="jPanel6" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -494,18 +516,7 @@
                 <Component class="javax.swing.JTable" name="jTable1">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="10" rowCount="0">
-                        <Column editable="true" title="Nombre" type="java.lang.String"/>
-                        <Column editable="true" title="Tipo" type="java.lang.String"/>
-                        <Column editable="true" title="Precio" type="java.lang.Double"/>
-                        <Column editable="true" title="Material" type="java.lang.String"/>
-                        <Column editable="true" title="Color" type="java.lang.String"/>
-                        <Column editable="true" title="Alto" type="java.lang.Float"/>
-                        <Column editable="true" title="Ancho" type="java.lang.Float"/>
-                        <Column editable="true" title="Profundidad" type="java.lang.Float"/>
-                        <Column editable="true" title="Stock minimo" type="java.lang.Integer"/>
-                        <Column editable="true" title="Existencias" type="java.lang.Integer"/>
-                      </Table>
+                      <Table columnCount="0" rowCount="0"/>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
@@ -617,7 +628,7 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Editar"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Cursor Por defecto"/>
+                      <Color id="Cursor de Mano"/>
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
@@ -629,7 +640,7 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Eliminar"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Cursor Por defecto"/>
+                      <Color id="Cursor de Mano"/>
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
@@ -641,7 +652,7 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Regresar"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Cursor Por defecto"/>
+                      <Color id="Cursor de Mano"/>
                     </Property>
                   </Properties>
                   <Events>

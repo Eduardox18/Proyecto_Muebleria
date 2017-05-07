@@ -343,8 +343,14 @@ public class Administrar extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Caracteristicas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Sans", 0, 12))); // NOI18N
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel3.setFont(new java.awt.Font("Lucida Sans", 0, 13)); // NOI18N
         jLabel3.setText("Material:");
@@ -387,7 +393,7 @@ public class Administrar extends javax.swing.JFrame {
                         .addComponent(anchotf)
                         .addComponent(profundidadtf, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
                     .addComponent(combomedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,11 +426,12 @@ public class Administrar extends javax.swing.JFrame {
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         limpiar.setFont(new java.awt.Font("Lucida Sans", 0, 13)); // NOI18N
         limpiar.setText("Limpiar");
         limpiar.setToolTipText("");
-        limpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        limpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 limpiarActionPerformed(evt);
@@ -433,7 +440,7 @@ public class Administrar extends javax.swing.JFrame {
 
         agregar.setFont(new java.awt.Font("Lucida Sans", 0, 13)); // NOI18N
         agregar.setText("Agregar");
-        agregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        agregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 agregarActionPerformed(evt);
@@ -442,7 +449,7 @@ public class Administrar extends javax.swing.JFrame {
 
         regresar.setFont(new java.awt.Font("Lucida Sans", 0, 13)); // NOI18N
         regresar.setText("Regresar");
-        regresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        regresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         regresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 regresarActionPerformed(evt);
@@ -474,6 +481,7 @@ public class Administrar extends javax.swing.JFrame {
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalles", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Sans", 0, 12))); // NOI18N
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Lucida Sans", 0, 13)); // NOI18N
         jLabel1.setText("Nombre:");
@@ -521,7 +529,7 @@ public class Administrar extends javax.swing.JFrame {
                             .addComponent(jLabel8))
                         .addGap(49, 49, 49)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tipotf, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                            .addComponent(tipotf, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                             .addComponent(preciotf)
                             .addComponent(nombretf)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -569,7 +577,7 @@ public class Administrar extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addGap(115, 115, 115)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -592,17 +600,9 @@ public class Administrar extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Tipo", "Precio", "Material", "Color", "Alto", "Ancho", "Profundidad", "Stock minimo", "Existencias"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-        });
+        ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jTable1MouseReleased(evt);
@@ -618,7 +618,7 @@ public class Administrar extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         btEditar.setText("Editar");
-        btEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btEditar.setEnabled(false);
         btEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -627,7 +627,7 @@ public class Administrar extends javax.swing.JFrame {
         });
 
         btEliminar.setText("Eliminar");
-        btEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btEliminar.setEnabled(false);
         btEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -636,7 +636,7 @@ public class Administrar extends javax.swing.JFrame {
         });
 
         bRegresar.setText("Regresar");
-        bRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        bRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bRegresarActionPerformed(evt);
@@ -694,7 +694,7 @@ public class Administrar extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
