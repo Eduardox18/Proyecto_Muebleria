@@ -5,6 +5,7 @@
  */
 package muebleriaswing.ventanas;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -293,6 +294,30 @@ public class Administrar extends javax.swing.JFrame {
         }
 
     }
+    
+    public boolean soloNumeros (int tecla) {
+        if(tecla == KeyEvent.VK_0)
+            return true;
+        if(tecla == KeyEvent.VK_1)
+            return true;
+        if(tecla == KeyEvent.VK_2)
+            return true;
+        if(tecla == KeyEvent.VK_3)
+            return true;
+        if(tecla == KeyEvent.VK_4)
+            return true;
+        if(tecla == KeyEvent.VK_5)
+            return true;
+        if(tecla == KeyEvent.VK_6)
+            return true;
+        if(tecla == KeyEvent.VK_7)
+            return true;
+        if(tecla == KeyEvent.VK_8)
+            return true;
+        if(tecla == KeyEvent.VK_9)
+            return true;
+        return tecla == KeyEvent.VK_DECIMAL;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -512,6 +537,11 @@ public class Administrar extends javax.swing.JFrame {
         cantidadtf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cantidadtfActionPerformed(evt);
+            }
+        });
+        cantidadtf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cantidadtfKeyReleased(evt);
             }
         });
 
@@ -820,6 +850,11 @@ public class Administrar extends javax.swing.JFrame {
             Logger.getLogger(Administrar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btEliminarActionPerformed
+
+    private void cantidadtfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadtfKeyReleased
+
+        
+    }//GEN-LAST:event_cantidadtfKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
