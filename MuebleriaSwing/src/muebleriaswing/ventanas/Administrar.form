@@ -167,7 +167,7 @@
                               <Component id="combomedida" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="23" max="32767" attributes="0"/>
+                          <EmptySpace pref="55" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -357,7 +357,7 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="tipotf" pref="157" max="32767" attributes="0"/>
+                                      <Component id="tipotf" pref="189" max="32767" attributes="0"/>
                                       <Component id="preciotf" max="32767" attributes="0"/>
                                       <Component id="nombretf" max="32767" attributes="0"/>
                                   </Group>

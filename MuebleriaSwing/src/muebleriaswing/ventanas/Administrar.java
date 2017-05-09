@@ -165,7 +165,22 @@ public class Administrar extends javax.swing.JFrame {
                 + "Mueble.nombreMueble LIKE '" + filtro + "%';";
     }
 
-    public int insertarMueble(String nombre, String tipo, String precio, String stock,
+    /**
+     * Agrega un nuevo mueble a la base de datos.
+     * @param nombre Nombre del mueble
+     * @param tipo Tipo de mueble
+     * @param precio Precio del mueble
+     * @param stock La cantidad mínima de muebles que puede haber
+     * @param material Material del mueble
+     * @param color Color del mueble
+     * @param altura Altura (cm o m) del mueble
+     * @param base Base (cm o m) del mueble
+     * @param profundidad Profundidad (cm o m) del mueble
+     * @param cantidad Existencias del mueble
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
+    public void insertarMueble(String nombre, String tipo, String precio, String stock,
             String material, String color, String altura, String base, String profundidad, String cantidad)
             throws SQLException, ClassNotFoundException {
 
@@ -180,10 +195,14 @@ public class Administrar extends javax.swing.JFrame {
                 + "Mueble_idMueble, existenciasAlmacen) VALUES (1, " + getIDMueble() + "," + cantidad + ");";
 
         update(sQuery);
-
-        return 0;
     }
 
+    /**
+     * Función que realiza un update válido cualquiera.
+     * @param sQuery Sentencia del update
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     public void update(String sQuery) throws ClassNotFoundException, SQLException {
         try {
             con = new Conexion().connection();
@@ -196,6 +215,11 @@ public class Administrar extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Función que recupera el ID del último mueble agregado a la base de datos.
+     * @return Retorna el ID del último mueble agregado.
+     * @throws SQLException 
+     */
     public int getIDMueble() throws SQLException {
         sQuery = "SELECT MAX(idMueble) FROM Mueble;";
 
@@ -292,7 +316,6 @@ public class Administrar extends javax.swing.JFrame {
                     + "con existencias", "Imposible eliminar",
                     JOptionPane.WARNING_MESSAGE);
         }
-
     }
     
     public boolean soloNumeros (int tecla) {
@@ -318,6 +341,8 @@ public class Administrar extends javax.swing.JFrame {
             return true;
         return tecla == KeyEvent.VK_DECIMAL;
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -447,7 +472,7 @@ public class Administrar extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(combomedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -559,7 +584,7 @@ public class Administrar extends javax.swing.JFrame {
                             .addComponent(jLabel8))
                         .addGap(49, 49, 49)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tipotf, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                            .addComponent(tipotf, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                             .addComponent(preciotf)
                             .addComponent(nombretf)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -767,19 +792,21 @@ public class Administrar extends javax.swing.JFrame {
   }//GEN-LAST:event_btEditarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        boolean a, b, c, d, e, f, g, h, i;
-        a = nombretf.getText().equals("");
-        b = tipotf.getText().equals("");
-        c = preciotf.getText().equals("");
-        d = sminimotf.getText().equals("");
-        e = materialtf.getText().equals("");
-        f = colortf.getText().equals("");
-        g = altotf.getText().equals("");
-        h = anchotf.getText().equals("");
-        i = profundidadtf.getText().equals("");
+        boolean bnombre, btipo, bprecio, bminimo, bmaterial, bcolor, balto, bancho, bprofundidad;
+        bnombre = nombretf.getText().equals("");
+        btipo = tipotf.getText().equals("");
+        bprecio = preciotf.getText().equals("");
+        bminimo = sminimotf.getText().equals("");
+        bmaterial = materialtf.getText().equals("");
+        bcolor = colortf.getText().equals("");
+        balto = altotf.getText().equals("");
+        bancho = anchotf.getText().equals("");
+        bprofundidad = profundidadtf.getText().equals("");
 
-        if (a != true && b != true && c != true && d != true && e != true && f != true && g != true && h != true
-                && i != true) {
+        if (bnombre != true && btipo != true && bprecio != true && bminimo != true && bmaterial != true && 
+                bcolor != true && balto != true && bancho != true && bprofundidad != true) {
+            
+            
             try {
                 insertarMueble(nombretf.getText(), tipotf.getText(), preciotf.getText(),
                         sminimotf.getText(), materialtf.getText(), colortf.getText(),
@@ -840,7 +867,7 @@ public class Administrar extends javax.swing.JFrame {
   }//GEN-LAST:event_cantidadtfActionPerformed
 
   private void preciotfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preciotfActionPerformed
-      // TODO add your handling code here:
+      
   }//GEN-LAST:event_preciotfActionPerformed
 
     private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
