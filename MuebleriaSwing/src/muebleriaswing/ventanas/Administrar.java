@@ -5,6 +5,7 @@
  */
 package muebleriaswing.ventanas;
 
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -50,6 +51,88 @@ public class Administrar extends javax.swing.JFrame {
         jTable1.setModel(modelo);
         jTable1.setRowSorter(elQueOrdena);
         rellenarTabla(inicial);
+        
+        /**
+         * Bloque de comprobaciones.
+         * Descripción: KeyListener's que comprueban que no se ingresen letras
+         *              a los campos que sólo aceptan números.
+         */
+        preciotf.addKeyListener(new KeyAdapter() {
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            if (!(Character.isDigit(c) || 
+                    (c == KeyEvent.VK_BACK_SPACE) || 
+                    (c == KeyEvent.VK_DELETE) || 
+                    (c == '.'))) { 
+                getToolkit().beep();
+                e.consume();
+            }
+        }
+        });
+        
+        sminimotf.addKeyListener(new KeyAdapter() {
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            if (!(Character.isDigit(c) || 
+                    (c == KeyEvent.VK_BACK_SPACE) || 
+                    (c == KeyEvent.VK_DELETE))) { 
+                getToolkit().beep();
+                e.consume();
+            }
+        }
+        });
+        
+        altotf.addKeyListener(new KeyAdapter() {
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            if (!(Character.isDigit(c) || 
+                    (c == KeyEvent.VK_BACK_SPACE) || 
+                    (c == KeyEvent.VK_DELETE) || 
+                    (c == '.'))) { 
+                getToolkit().beep();
+                e.consume();
+            }
+        }
+        });
+        
+        anchotf.addKeyListener(new KeyAdapter() {
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            if (!(Character.isDigit(c) || 
+                    (c == KeyEvent.VK_BACK_SPACE) || 
+                    (c == KeyEvent.VK_DELETE) || 
+                    (c == '.'))) { 
+                getToolkit().beep();
+                e.consume();
+            }
+        }
+        });
+        
+        profundidadtf.addKeyListener(new KeyAdapter() {
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            if (!(Character.isDigit(c) || 
+                    (c == KeyEvent.VK_BACK_SPACE) || 
+                    (c == KeyEvent.VK_DELETE) || 
+                    (c == '.'))) { 
+                getToolkit().beep();
+                e.consume();
+            }
+        }
+        });
+        
+        cantidadtf.addKeyListener(new KeyAdapter() {
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            if (!(Character.isDigit(c) || 
+                    (c == KeyEvent.VK_BACK_SPACE) || 
+                    (c == KeyEvent.VK_DELETE))) { 
+                getToolkit().beep();
+                e.consume();
+            }
+        }
+        });
+        //Fin del bloque de comprobaciones.
     }
     
     /**
@@ -340,9 +423,7 @@ public class Administrar extends javax.swing.JFrame {
         if(tecla == KeyEvent.VK_9)
             return true;
         return tecla == KeyEvent.VK_DECIMAL;
-    }
-    
-    
+    } 
 
     /**
      * This method is called from within the constructor to initialize the form.
