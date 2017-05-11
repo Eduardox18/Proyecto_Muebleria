@@ -121,7 +121,4 @@ public class Mueble {
   public void setCantidadMueble(int cantidadMueble) {
     this.cantidadMueble = cantidadMueble;
   }
-  
-  
-  
 }
