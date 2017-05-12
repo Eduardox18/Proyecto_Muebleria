@@ -5,6 +5,7 @@
  */
 package muebleriaswing.ventanas;
 
+import java.awt.Dialog;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -14,12 +15,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import muebleriaswing.Mueble;
 import muebleriaswing.conexion.Conexion;
+import muebleriaswing.miKeyAdapter;
 
 /**
  *
@@ -57,81 +60,14 @@ public class Administrar extends javax.swing.JFrame {
          * Descripción: KeyListener's que comprueban que no se ingresen letras
          *              a los campos que sólo aceptan números.
          */
-        preciotf.addKeyListener(new KeyAdapter() {
-        public void keyTyped(KeyEvent e) {
-            char c = e.getKeyChar();
-            if (!(Character.isDigit(c) || 
-                    (c == KeyEvent.VK_BACK_SPACE) || 
-                    (c == KeyEvent.VK_DELETE) || 
-                    (c == '.'))) { 
-                getToolkit().beep();
-                e.consume();
-            }
-        }
-        });
+        miKeyAdapter mka = new miKeyAdapter();
         
-        sminimotf.addKeyListener(new KeyAdapter() {
-        public void keyTyped(KeyEvent e) {
-            char c = e.getKeyChar();
-            if (!(Character.isDigit(c) || 
-                    (c == KeyEvent.VK_BACK_SPACE) || 
-                    (c == KeyEvent.VK_DELETE))) { 
-                getToolkit().beep();
-                e.consume();
-            }
-        }
-        });
-        
-        altotf.addKeyListener(new KeyAdapter() {
-        public void keyTyped(KeyEvent e) {
-            char c = e.getKeyChar();
-            if (!(Character.isDigit(c) || 
-                    (c == KeyEvent.VK_BACK_SPACE) || 
-                    (c == KeyEvent.VK_DELETE) || 
-                    (c == '.'))) { 
-                getToolkit().beep();
-                e.consume();
-            }
-        }
-        });
-        
-        anchotf.addKeyListener(new KeyAdapter() {
-        public void keyTyped(KeyEvent e) {
-            char c = e.getKeyChar();
-            if (!(Character.isDigit(c) || 
-                    (c == KeyEvent.VK_BACK_SPACE) || 
-                    (c == KeyEvent.VK_DELETE) || 
-                    (c == '.'))) { 
-                getToolkit().beep();
-                e.consume();
-            }
-        }
-        });
-        
-        profundidadtf.addKeyListener(new KeyAdapter() {
-        public void keyTyped(KeyEvent e) {
-            char c = e.getKeyChar();
-            if (!(Character.isDigit(c) || 
-                    (c == KeyEvent.VK_BACK_SPACE) || 
-                    (c == KeyEvent.VK_DELETE) || 
-                    (c == '.'))) { 
-                getToolkit().beep();
-                e.consume();
-            }
-        }
-        });
-        
-        cantidadtf.addKeyListener(new KeyAdapter() {
-        public void keyTyped(KeyEvent e) {
-            char c = e.getKeyChar();
-            if (!(Character.isDigit(c) || 
-                    (c == KeyEvent.VK_BACK_SPACE) || 
-                    (c == KeyEvent.VK_DELETE))) { 
-                getToolkit().beep();
-                e.consume();
-            }
-        }
-        });
+        preciotf.addKeyListener(mka);
+        sminimotf.addKeyListener(mka);
+        altotf.addKeyListener(mka);
+        anchotf.addKeyListener(mka);
+        profundidadtf.addKeyListener(mka);
+        cantidadtf.addKeyListener(mka);
         //Fin del bloque de comprobaciones.
     }
     
@@ -154,6 +90,7 @@ public class Administrar extends javax.swing.JFrame {
         modelo.setRowCount(0);
         
         elQueOrdena = new TableRowSorter<>(modelo);
+        
     }
     
     /**
@@ -163,6 +100,8 @@ public class Administrar extends javax.swing.JFrame {
      * muebles
      */
     public void rellenarTabla(String query) {
+        btEliminar.setEnabled(false);
+        btEditar.setEnabled(false);
         modelo.setRowCount(0);
         ArrayList<Mueble> listaMuebles = obtenerDatos(query);
         Object rowData[] = new Object[10];
@@ -856,9 +795,8 @@ public class Administrar extends javax.swing.JFrame {
 
   private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
       Mueble mueble = datosMueble();
-      EditarMueble em = new EditarMueble();
-      em.setLocationRelativeTo(null);
-      em.setVisible(true);
+      EditarMueble em = new EditarMueble(this, true);
+      
       int idMueble = 0;
       sQuery = "SELECT idMueble FROM Mueble WHERE nombreMueble = '" + mueble.getNombreMueble() + 
               "' AND colorMueble = '" + mueble.getColorMueble() + "';";
@@ -883,7 +821,9 @@ public class Administrar extends javax.swing.JFrame {
       em.llenarTF(idMueble, mueble.getNombreMueble(), mueble.getTipoMueble(), mueble.getPrecioMueble(), 
               mueble.getStockMinimoMueble(), mueble.getMaterialMueble(), mueble.getColorMueble(), 
               mueble.getAlturaMueble(), mueble.getBaseMueble(), mueble.getProfundidadMueble());
-      this.setEnabled(false);
+      em.setLocationRelativeTo(null);
+      em.setVisible(true);
+      rellenarTabla(inicial);
       
   }//GEN-LAST:event_btEditarActionPerformed
 
@@ -919,6 +859,7 @@ public class Administrar extends javax.swing.JFrame {
       colorMueble = mueble.getColorMueble();
       btEliminar.setEnabled(true);
       btEditar.setEnabled(true);
+     
   }//GEN-LAST:event_jTable1MouseReleased
 
     private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
