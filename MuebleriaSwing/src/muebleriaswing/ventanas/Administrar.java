@@ -19,6 +19,7 @@ import javax.swing.table.TableRowSorter;
 import muebleriaswing.Mueble;
 import muebleriaswing.conexion.Conexion;
 import muebleriaswing.miKeyAdapter;
+import muebleriaswing.MetodosUtiles;
 
 /**
  *
@@ -116,7 +117,6 @@ public class Administrar extends javax.swing.JFrame {
         }
     }
 
-    
     /**
      * 
      * Limpia todos los campos de la pestaña agregar
@@ -260,36 +260,18 @@ public class Administrar extends javax.swing.JFrame {
         return jTable1.getSelectedRow();
     }
 
-    public double stringADouble(String cuerda) {
-        Double doble = Double.parseDouble(cuerda);
-        return doble;
-    }
-
-    public int stringAInt(String cuerda) {
-        Integer entero = Integer.parseInt(cuerda);
-        return entero;
-    }
-
-    public String dobleAString(Double doble) {
-        return doble.toString();
-    }
-
-    public String intAString(Integer entero) {
-        return entero.toString();
-    }
-
     public Mueble datosMueble() {
         Mueble mueble = new Mueble();
         mueble.setNombreMueble(jTable1.getValueAt(posicionTabla(), 0).toString());
         mueble.setTipoMueble(jTable1.getValueAt(posicionTabla(), 1).toString());
-        mueble.setPrecioMueble(stringADouble(jTable1.getValueAt(posicionTabla(), 2).toString()));
+        mueble.setPrecioMueble(MetodosUtiles.stringADouble(jTable1.getValueAt(posicionTabla(), 2).toString()));
         mueble.setMaterialMueble(jTable1.getValueAt(posicionTabla(), 3).toString());
         mueble.setColorMueble(jTable1.getValueAt(posicionTabla(), 4).toString());
-        mueble.setAlturaMueble(stringADouble(jTable1.getValueAt(posicionTabla(), 5).toString()));
-        mueble.setBaseMueble(stringADouble(jTable1.getValueAt(posicionTabla(), 6).toString()));
-        mueble.setProfundidadMueble(stringADouble(jTable1.getValueAt(posicionTabla(), 7).toString()));
-        mueble.setStockMinimoMueble(stringAInt(jTable1.getValueAt(posicionTabla(), 8).toString()));
-        mueble.setCantidadMueble(stringAInt(jTable1.getValueAt(posicionTabla(), 9).toString()));
+        mueble.setAlturaMueble(MetodosUtiles.stringADouble(jTable1.getValueAt(posicionTabla(), 5).toString()));
+        mueble.setBaseMueble(MetodosUtiles.stringADouble(jTable1.getValueAt(posicionTabla(), 6).toString()));
+        mueble.setProfundidadMueble(MetodosUtiles.stringADouble(jTable1.getValueAt(posicionTabla(), 7).toString()));
+        mueble.setStockMinimoMueble(MetodosUtiles.stringAInt(jTable1.getValueAt(posicionTabla(), 8).toString()));
+        mueble.setCantidadMueble(MetodosUtiles.stringAInt(jTable1.getValueAt(posicionTabla(), 9).toString()));
         return mueble;
     }
 

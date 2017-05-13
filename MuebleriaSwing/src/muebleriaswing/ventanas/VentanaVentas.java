@@ -5,15 +5,18 @@
  */
 package muebleriaswing.ventanas;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import muebleriaswing.MetodosUtiles;
 import muebleriaswing.Mueble;
 import muebleriaswing.conexion.Conexion;
 
@@ -27,12 +30,14 @@ public class VentanaVentas extends javax.swing.JFrame {
      * Creates new form Ventas
      */
     private DefaultTableModel modelo;
+    private final double IVA = 0.16;
     private TableRowSorter<TableModel> elQueOrdena;
     private Mueble mueble;
     static Connection con = null;
     static Statement s = null;
     static ResultSet rs = null;
     String sQuery;
+    private ArrayList<Mueble> venta = new ArrayList<>();
     
     public VentanaVentas() {
         initComponents();
@@ -41,10 +46,13 @@ public class VentanaVentas extends javax.swing.JFrame {
         tablaVentas.setModel(modelo);
         tablaVentas.setRowSorter(elQueOrdena);
         agregarFila();
+        lSubtotal.setText("0");
+        lTotal.setText("0");
+        lIva.setText(MetodosUtiles.dobleAString(IVA));
         
     }
     
-    public void modeloTabla () {
+    private void modeloTabla () {
         modelo = new DefaultTableModel() {
             public boolean iscellEditable(int row, int column)
             {
@@ -60,16 +68,36 @@ public class VentanaVentas extends javax.swing.JFrame {
         elQueOrdena = new TableRowSorter<>(modelo);
     }
     
-    public void agregarFila () {
-        Object [] objeto = new Object[4];
+    private void agregarFila () {
+        String [] objeto = new String[4];
         modelo.addRow(objeto);
     }
     
-    public String valorTabla () {
-        return (String) tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 0);
+    private Object valorTabla (int columna) {
+        return tablaVentas.getValueAt(tablaVentas.getSelectedRow(), columna);
     }
     
-    public Mueble existeIDMueble (String id) {
+    private void calculaPrecios () {
+        int filas = tablaVentas.getRowCount();
+        double subtotal = 0;
+        double total = 0;
+        int cantidad = 1;
+        
+        for(int i = 0; i < filas; i++) {
+            subtotal += MetodosUtiles.stringADouble(tablaVentas.getValueAt(i, 2).toString());
+        }
+        
+        if(valorTabla(3) != null)
+            cantidad = MetodosUtiles.stringAInt((String)valorTabla(3));
+        
+        subtotal *= cantidad; 
+        total = subtotal * (1 + IVA);
+        
+        lSubtotal.setText(MetodosUtiles.dobleAString(subtotal));
+        lTotal.setText(MetodosUtiles.dobleAString(total));
+    }
+    
+    private Mueble existeIDMueble (String id) {
         sQuery = "SELECT * FROM mueble WHERE idMueble = " + id +";";
         mueble = new Mueble();
         try {
@@ -109,12 +137,12 @@ public class VentanaVentas extends javax.swing.JFrame {
         tablaVentas = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lSubtotal = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lIva = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lTotal = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
@@ -153,15 +181,15 @@ public class VentanaVentas extends javax.swing.JFrame {
 
         jLabel4.setText("Subtotal:");
 
-        jLabel1.setText("jLabel1");
+        lSubtotal.setText("jLabel1");
 
         jLabel2.setText("IVA:");
 
-        jLabel3.setText("jLabel3");
+        lIva.setText("jLabel3");
 
         jLabel5.setText("Total:");
 
-        jLabel6.setText("jLabel6");
+        lTotal.setText("jLabel6");
 
         jButton1.setText("Realizar venta");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -177,15 +205,15 @@ public class VentanaVentas extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                        .addComponent(jLabel1))
+                        .addComponent(lSubtotal))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3))
+                        .addComponent(lIva))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)))
+                        .addComponent(lTotal)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -198,17 +226,17 @@ public class VentanaVentas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel1))
+                    .addComponent(lSubtotal))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(lIva))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                    .addComponent(lTotal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -282,11 +310,16 @@ public class VentanaVentas extends javax.swing.JFrame {
 
     private void tablaVentasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaVentasKeyReleased
 
-        if(!existeIDMueble(valorTabla()).equals(null)) {
+        if(existeIDMueble((String)valorTabla(0)) != null) {
             tablaVentas.setValueAt(mueble.getNombreMueble(), tablaVentas.getSelectedRow(), 1);
             tablaVentas.setValueAt(mueble.getPrecioMueble(), tablaVentas.getSelectedRow(), 2);
-            tablaVentas.setEditingColumn(4);
+            calculaPrecios();
+            
+            if(valorTabla(3) != null) {
+                agregarFila();
+            }
         }
+        
 //        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
 //            if(valorTabla() != null) {
 //                agregarFila();
@@ -305,17 +338,17 @@ public class VentanaVentas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lIva;
+    private javax.swing.JLabel lSubtotal;
+    private javax.swing.JLabel lTotal;
     private javax.swing.JTable tablaVentas;
     // End of variables declaration//GEN-END:variables
 }
