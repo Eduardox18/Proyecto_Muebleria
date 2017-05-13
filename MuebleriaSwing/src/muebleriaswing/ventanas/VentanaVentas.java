@@ -5,11 +5,17 @@
  */
 package muebleriaswing.ventanas;
 
-import com.sun.glass.events.KeyEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import muebleriaswing.Mueble;
+import muebleriaswing.conexion.Conexion;
 
 /**
  *
@@ -22,7 +28,11 @@ public class VentanaVentas extends javax.swing.JFrame {
      */
     private DefaultTableModel modelo;
     private TableRowSorter<TableModel> elQueOrdena;
-    private Mueble mueble = new Mueble();
+    private Mueble mueble;
+    static Connection con = null;
+    static Statement s = null;
+    static ResultSet rs = null;
+    String sQuery;
     
     public VentanaVentas() {
         initComponents();
@@ -53,6 +63,36 @@ public class VentanaVentas extends javax.swing.JFrame {
     public void agregarFila () {
         Object [] objeto = new Object[4];
         modelo.addRow(objeto);
+    }
+    
+    public String valorTabla () {
+        return (String) tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 0);
+    }
+    
+    public Mueble existeIDMueble (String id) {
+        sQuery = "SELECT * FROM mueble WHERE idMueble = " + id +";";
+        mueble = new Mueble();
+        try {
+            con = new Conexion().connection();
+            s = con.createStatement();
+            rs = s.executeQuery(sQuery);
+            
+            while(rs != null && rs.next()) {
+                mueble.setPrecioMueble(rs.getDouble("precioMueble"));
+                mueble.setNombreMueble(rs.getString("nombreMueble"));
+            }
+            return mueble;
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(VentanaVentas.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaVentas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 
     /**
@@ -241,9 +281,17 @@ public class VentanaVentas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void tablaVentasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaVentasKeyReleased
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            agregarFila();
+
+        if(!existeIDMueble(valorTabla()).equals(null)) {
+            tablaVentas.setValueAt(mueble.getNombreMueble(), tablaVentas.getSelectedRow(), 1);
+            tablaVentas.setValueAt(mueble.getPrecioMueble(), tablaVentas.getSelectedRow(), 2);
+            tablaVentas.setEditingColumn(4);
         }
+//        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+//            if(valorTabla() != null) {
+//                agregarFila();
+//            }
+//        }
     }//GEN-LAST:event_tablaVentasKeyReleased
 
     private void tablaVentasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaVentasKeyPressed
