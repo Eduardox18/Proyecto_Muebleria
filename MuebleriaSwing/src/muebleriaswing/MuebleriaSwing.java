@@ -5,8 +5,7 @@
  */
 package muebleriaswing;
 
-import muebleriaswing.ventanas.Administrar;
-import muebleriaswing.ventanas.Inicial;
+import muebleriaswing.ventanas.LogIn;
 
 /**
  *
@@ -18,7 +17,7 @@ public class MuebleriaSwing {
    * @param args the command line arguments
    */
   public static void main(String[] args) {
-      Inicial inicial = new Inicial();
-      inicial.setVisible(true);
+      LogIn logueate = new LogIn();
+      logueate.setVisible(true);
   }  
 }

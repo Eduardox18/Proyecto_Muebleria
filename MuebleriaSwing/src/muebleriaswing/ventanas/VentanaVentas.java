@@ -105,6 +105,7 @@ public class VentanaVentas extends javax.swing.JFrame {
         for(int i = 0; i < filas; i++) {
             precio = (double) valorTabla(i, 2);
             if(valorTabla(i, 3) == null) {
+                tablaVentas.setValueAt(1, i, 3);
                 cantidad = 1;
             }
             else {
@@ -281,7 +282,7 @@ public class VentanaVentas extends javax.swing.JFrame {
                     .addComponent(jSeparator1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                         .addComponent(lSubtotal))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -292,10 +293,10 @@ public class VentanaVentas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lTotal)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
                 .addComponent(jButton1)
-                .addGap(42, 42, 42))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,8 +424,16 @@ public class VentanaVentas extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if(valorTabla(tablaVentas.getSelectedRow(),3) != null) {
+            if(esSuficiente(MetodosUtiles.stringAInt((String) valorTabla(tablaVentas.getSelectedRow(), 3)), 
+                MetodosUtiles.stringAInt((String) valorTabla(tablaVentas.getSelectedRow(), 0)))){
                 agregarFila();
             }
+            else {
+                JOptionPane.showMessageDialog(null, "No hay existencias disponibles", 
+                        "Sin existencias", JOptionPane.WARNING_MESSAGE);
+            tablaVentas.setValueAt(null, tablaVentas.getSelectedRow(), 3);
+            }    
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
