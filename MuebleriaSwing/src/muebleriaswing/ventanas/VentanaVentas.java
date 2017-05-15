@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -31,7 +32,6 @@ public class VentanaVentas extends javax.swing.JFrame {
      */
     private DefaultTableModel modelo;
     private final double IVA = 0.16;
-    private TableRowSorter<TableModel> elQueOrdena;
     private Mueble mueble;
     static Connection con = null;
     static Statement s = null;
@@ -44,7 +44,6 @@ public class VentanaVentas extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         modeloTabla();
         tablaVentas.setModel(modelo);
-        tablaVentas.setRowSorter(elQueOrdena);
         agregarFila();
         lSubtotal.setText("0");
         lTotal.setText("0");
@@ -64,8 +63,6 @@ public class VentanaVentas extends javax.swing.JFrame {
         modelo.addColumn("Nombre");
         modelo.addColumn("Precio");
         modelo.addColumn("Cantidad");
-        
-        elQueOrdena = new TableRowSorter<>(modelo);
     }
     
     private void agregarFila () {
@@ -73,24 +70,38 @@ public class VentanaVentas extends javax.swing.JFrame {
         modelo.addRow(objeto);
     }
     
-    private Object valorTabla (int columna) {
-        return tablaVentas.getValueAt(tablaVentas.getSelectedRow(), columna);
+    private Object valorTabla (int fila, int columna) {
+        return tablaVentas.getValueAt(fila, columna);
     }
     
-    private void calculaPrecios () {
+    private Double[] calculaPrecios () {
         int filas = tablaVentas.getRowCount();
-        double subtotal = 0;
-        double total = 0;
-        int cantidad = 1;
+        double precio = 0;
+        int cantidad = 0;
+        Double[] precios = new Double[filas];
         
         for(int i = 0; i < filas; i++) {
-            subtotal += MetodosUtiles.stringADouble(tablaVentas.getValueAt(i, 2).toString());
+            precio = (double) valorTabla(i, 2);
+            if(valorTabla(i, 3) == null) {
+                cantidad = 1;
+            }
+            else {
+                cantidad = MetodosUtiles.stringAInt((String)valorTabla(i, 3));
+            }
+            precios[i] = precio * cantidad;
+        }
+        return precios;
+    }
+    
+    private void sumarPrecios () {
+        double subtotal = 0;
+        double total = 0;
+        Double[] cantidades = calculaPrecios();
+        
+        for(int i = 0; i < cantidades.length; i++) {
+            subtotal += cantidades[i];
         }
         
-        if(valorTabla(3) != null)
-            cantidad = MetodosUtiles.stringAInt((String)valorTabla(3));
-        
-        subtotal *= cantidad; 
         total = subtotal * (1 + IVA);
         
         lSubtotal.setText(MetodosUtiles.dobleAString(subtotal));
@@ -105,12 +116,12 @@ public class VentanaVentas extends javax.swing.JFrame {
             s = con.createStatement();
             rs = s.executeQuery(sQuery);
             
-            while(rs != null && rs.next()) {
+            if(rs != null && rs.next()) {
                 mueble.setPrecioMueble(rs.getDouble("precioMueble"));
                 mueble.setNombreMueble(rs.getString("nombreMueble"));
+                return mueble;
             }
-            return mueble;
-            
+                        
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(VentanaVentas.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -310,14 +321,20 @@ public class VentanaVentas extends javax.swing.JFrame {
 
     private void tablaVentasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaVentasKeyReleased
 
-        if(existeIDMueble((String)valorTabla(0)) != null) {
+        if(existeIDMueble((String)valorTabla(tablaVentas.getSelectedRow(), 0)) != null) {
             tablaVentas.setValueAt(mueble.getNombreMueble(), tablaVentas.getSelectedRow(), 1);
             tablaVentas.setValueAt(mueble.getPrecioMueble(), tablaVentas.getSelectedRow(), 2);
-            calculaPrecios();
+            sumarPrecios();
             
-            if(valorTabla(3) != null) {
+            if(valorTabla(tablaVentas.getSelectedRow(),3) != null) {
                 agregarFila();
             }
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "No se encontró ningún mueble "
+                    + "que coincida con esa clave", "No encontrado",
+                    JOptionPane.WARNING_MESSAGE);
+            tablaVentas.setValueAt(null, tablaVentas.getSelectedRow(), 0);
         }
         
 //        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
