@@ -28,4 +28,8 @@ public abstract class MetodosUtiles {
     public static String intAString(Integer entero) {
         return entero.toString();
     }
+    
+    public static int objectAInt(Object objeto) {
+        return (Integer) objeto;
+    }
 }

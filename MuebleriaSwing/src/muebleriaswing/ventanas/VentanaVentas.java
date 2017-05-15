@@ -98,19 +98,19 @@ public class VentanaVentas extends javax.swing.JFrame {
      */
     private Double[] calculaPrecios () {
         int filas = tablaVentas.getRowCount();
-        double precio = 0;
-        int cantidad = 0;
+        double precio;
+        int cantidad;
         Double[] precios = new Double[filas];
         
         for(int i = 0; i < filas; i++) {
             precio = (double) valorTabla(i, 2);
+            
             if(valorTabla(i, 3) == null) {
-                tablaVentas.setValueAt(1, i, 3);
-                cantidad = 1;
+                tablaVentas.setValueAt("1", i, 3);
             }
-            else {
-                cantidad = MetodosUtiles.stringAInt((String)valorTabla(i, 3));
-            }
+            
+            cantidad = MetodosUtiles.stringAInt((String)valorTabla(i, 3));
+            
             precios[i] = precio * cantidad;
         }
         return precios;
@@ -145,6 +145,24 @@ public class VentanaVentas extends javax.swing.JFrame {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(VentanaVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    /**
+     * 
+     * Comprueba que no se repita el mismo mueble en la venta
+     * @param idMueble id del mueble que se va a comprar
+     * @return true si el mueble está repetido y false si no lo está
+     */
+    private boolean repetidoEnTabla(int idMueble){
+        int filas = tablaVentas.getRowCount();
+        
+        for(int i = 0; i < filas; i++) {
+            
+            if(MetodosUtiles.stringAInt((String) valorTabla(i, 0)) == idMueble) {
+                return true;
+            }
         }
         return false;
     }
@@ -224,6 +242,7 @@ public class VentanaVentas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         jToolBar1.setRollover(true);
 
@@ -337,6 +356,8 @@ public class VentanaVentas extends javax.swing.JFrame {
             }
         });
 
+        jToggleButton1.setText("Resguardo");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -345,6 +366,8 @@ public class VentanaVentas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
                 .addContainerGap())
         );
@@ -354,7 +377,8 @@ public class VentanaVentas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(jToggleButton1))
                 .addContainerGap())
         );
 
@@ -423,17 +447,26 @@ public class VentanaVentas extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaVentasKeyPressed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if(valorTabla(tablaVentas.getSelectedRow(),3) != null) {
-            if(esSuficiente(MetodosUtiles.stringAInt((String) valorTabla(tablaVentas.getSelectedRow(), 3)), 
-                MetodosUtiles.stringAInt((String) valorTabla(tablaVentas.getSelectedRow(), 0)))){
-                agregarFila();
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "No hay existencias disponibles", 
+        if(tablaVentas.getSelectedRow() != -1){
+           if(valorTabla(tablaVentas.getSelectedRow(),3) != null) {
+                if(esSuficiente(MetodosUtiles.stringAInt((String) valorTabla(tablaVentas.getSelectedRow(), 3)), 
+                    MetodosUtiles.stringAInt((String) valorTabla(tablaVentas.getSelectedRow(), 0)))){
+                    agregarFila();
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "No hay existencias disponibles", 
                         "Sin existencias", JOptionPane.WARNING_MESSAGE);
-            tablaVentas.setValueAt(null, tablaVentas.getSelectedRow(), 3);
-            }    
+                    tablaVentas.setValueAt(null, tablaVentas.getSelectedRow(), 3);
+                }     
+            } else {
+               JOptionPane.showMessageDialog(null, "No ha ingresado ninguna clave", 
+                        "Sin clave", JOptionPane.WARNING_MESSAGE);
+           }
+        } else {
+            JOptionPane.showMessageDialog(null, "No ha ingresado ninguna clave", 
+                        "Sin clave", JOptionPane.WARNING_MESSAGE);
         }
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -451,6 +484,7 @@ public class VentanaVentas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lIva;
     private javax.swing.JLabel lSubtotal;
