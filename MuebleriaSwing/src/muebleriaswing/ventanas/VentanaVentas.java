@@ -5,7 +5,6 @@
  */
 package muebleriaswing.ventanas;
 
-import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,6 +30,7 @@ public class VentanaVentas extends javax.swing.JFrame {
      * Creates new form Ventas
      */
     private DefaultTableModel modelo;
+    private TableRowSorter<TableModel> elQueOrdena;
     private final double IVA = 0.16;
     private Mueble mueble;
     static Connection con = null;
@@ -44,6 +44,7 @@ public class VentanaVentas extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         modeloTabla();
         tablaVentas.setModel(modelo);
+        tablaVentas.setRowSorter(elQueOrdena);
         agregarFila();
         lSubtotal.setText("0");
         lTotal.setText("0");
@@ -51,6 +52,10 @@ public class VentanaVentas extends javax.swing.JFrame {
         
     }
     
+    /**
+     * 
+     * Establece el modelo de la tabla
+     */
     private void modeloTabla () {
         modelo = new DefaultTableModel() {
             public boolean iscellEditable(int row, int column)
@@ -63,17 +68,34 @@ public class VentanaVentas extends javax.swing.JFrame {
         modelo.addColumn("Nombre");
         modelo.addColumn("Precio");
         modelo.addColumn("Cantidad");
+        elQueOrdena = new TableRowSorter<>(modelo);
     }
     
+    /**
+     * 
+     * Agrega una fila vacia a la tabla
+     */
     private void agregarFila () {
-        String [] objeto = new String[4];
+        Object [] objeto = new Object[4];
         modelo.addRow(objeto);
     }
     
+    /**
+     * 
+     * Obtiene el valor de la tabla en la posición especificada
+     * @param fila Fila deseada
+     * @param columna Columna deseada
+     * @return Valor en el lugar especificado
+     */
     private Object valorTabla (int fila, int columna) {
         return tablaVentas.getValueAt(fila, columna);
     }
     
+    /**
+     * 
+     * Calcula el precio de los productos multiplicando cantidad por precio
+     * @return Arreglo con los valores de cada fila
+     */
     private Double[] calculaPrecios () {
         int filas = tablaVentas.getRowCount();
         double precio = 0;
@@ -93,6 +115,43 @@ public class VentanaVentas extends javax.swing.JFrame {
         return precios;
     }
     
+    /**
+     * 
+     * Comprueba si la cantidad de muebles es suficiente
+     * @param cantidad La cantidad que se desea comprar
+     * @return true si la cantidad es suficiente y false si no alcanza 
+     */
+    private boolean esSuficiente (int cantidad, int idMueble) {
+        sQuery = "select existenciasAlmacen from AlmacenGuardaMueble where "
+            + "Mueble_idMueble = " + idMueble + ";";
+        int existencia = 0;
+        
+        try {
+            con = new Conexion().connection();
+            s = con.createStatement();
+            rs = s.executeQuery(sQuery);
+            
+            if(rs.next() && rs != null) {
+                existencia = rs.getInt("existenciasAlmacen");
+                if (existencia >= cantidad) {
+                    return true;
+                }
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún mueble "
+                    + "que coincida con esa clave", "No encontrado",
+                    JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(VentanaVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    /**
+     * 
+     * Suma los precios de cada fila y después calcula el totoal
+     */
     private void sumarPrecios () {
         double subtotal = 0;
         double total = 0;
@@ -108,6 +167,12 @@ public class VentanaVentas extends javax.swing.JFrame {
         lTotal.setText(MetodosUtiles.dobleAString(total));
     }
     
+    /**
+     * 
+     * Comrueba si el id del mueble existe en la base de datos
+     * @param id El id que se va a buscar
+     * @return Un objeto mueble si existe y null si no existe 
+     */
     private Mueble existeIDMueble (String id) {
         sQuery = "SELECT * FROM mueble WHERE idMueble = " + id +";";
         mueble = new Mueble();
@@ -157,6 +222,7 @@ public class VentanaVentas extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         jToolBar1.setRollover(true);
 
@@ -215,7 +281,7 @@ public class VentanaVentas extends javax.swing.JFrame {
                     .addComponent(jSeparator1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lSubtotal))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -263,6 +329,13 @@ public class VentanaVentas extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Nuevo");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -270,13 +343,17 @@ public class VentanaVentas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap())
         );
 
@@ -325,10 +402,6 @@ public class VentanaVentas extends javax.swing.JFrame {
             tablaVentas.setValueAt(mueble.getNombreMueble(), tablaVentas.getSelectedRow(), 1);
             tablaVentas.setValueAt(mueble.getPrecioMueble(), tablaVentas.getSelectedRow(), 2);
             sumarPrecios();
-            
-            if(valorTabla(tablaVentas.getSelectedRow(),3) != null) {
-                agregarFila();
-            }
         }
         else {
             JOptionPane.showMessageDialog(null, "No se encontró ningún mueble "
@@ -348,6 +421,12 @@ public class VentanaVentas extends javax.swing.JFrame {
         
     }//GEN-LAST:event_tablaVentasKeyPressed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if(valorTabla(tablaVentas.getSelectedRow(),3) != null) {
+                agregarFila();
+            }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -355,6 +434,7 @@ public class VentanaVentas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
