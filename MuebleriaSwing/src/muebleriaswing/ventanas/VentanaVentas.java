@@ -317,8 +317,7 @@ public class VentanaVentas extends javax.swing.JFrame {
     mes = Integer.toString(cal.get(Calendar.MONTH));
     anio = Integer.toString(cal.get(Calendar.YEAR));
         
-    jLabelFecha.setText(anio + "/" + mes + "/" + dia);
-    return anio + "/" + mes + "/" + dia;
+    return dia + "/" + mes + "/" + anio;
   }
 
   /**
