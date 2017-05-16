@@ -581,17 +581,23 @@ public class VentanaVentas extends javax.swing.JFrame {
       }     
     }//GEN-LAST:event_jButtonNuevoActionPerformed
   private void jButtonRealizarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRealizarVentaActionPerformed
-    try {
-      insertarVenta(jLabelFecha.getText());
-    } catch (SQLException | ClassNotFoundException ex) {
-      Logger.getLogger(VentanaVentas.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    JOptionPane.showMessageDialog(this, "La venta se realizó exitosamente", "'Exito", 
-        JOptionPane.INFORMATION_MESSAGE); 
+    if(tablaVentas.getValueAt(0, 0) != null) {
+        try {
+            insertarVenta(jLabelFecha.getText());
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(VentanaVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(this, "La venta se realizó exitosamente", "'Exito", 
+            JOptionPane.INFORMATION_MESSAGE); 
     
-    VentanaVentas ventas = new VentanaVentas();
-    ventas.setVisible(true);
-    this.dispose();
+        VentanaVentas ventas = new VentanaVentas();
+        ventas.setVisible(true);
+        this.dispose();
+    }else{
+        JOptionPane.showMessageDialog(null, "No ha ingresado ningún artículo", 
+            "Sin artículos", JOptionPane.WARNING_MESSAGE);
+    }
+      
   }//GEN-LAST:event_jButtonRealizarVentaActionPerformed
 
 
