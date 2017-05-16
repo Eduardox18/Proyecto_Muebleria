@@ -51,14 +51,13 @@ public class Administrar extends javax.swing.JFrame {
         jTable1.setModel(modelo);
         jTable1.setRowSorter(elQueOrdena);
         rellenarTabla(inicial);
-        
+
         /**
-         * Bloque de comprobaciones.
-         * Descripción: KeyListener's que comprueban que no se ingresen letras
-         *              a los campos que sólo aceptan números.
+         * Bloque de comprobaciones. Descripción: KeyListener's que comprueban
+         * que no se ingresen letras a los campos que sólo aceptan números.
          */
         miKeyAdapter mka = new miKeyAdapter();
-        
+
         preciotf.addKeyListener(mka);
         sminimotf.addKeyListener(mka);
         altotf.addKeyListener(mka);
@@ -67,9 +66,9 @@ public class Administrar extends javax.swing.JFrame {
         cantidadtf.addKeyListener(mka);
         //Fin del bloque de comprobaciones.
     }
-    
+
     /**
-     * 
+     *
      * Define el modelo de la tabla y un Sorter para ordenar los datos
      */
     public void modeloTabla() {
@@ -85,14 +84,15 @@ public class Administrar extends javax.swing.JFrame {
         modelo.addColumn("Stock mínimo");
         modelo.addColumn("Existencia");
         modelo.setRowCount(0);
-        
+
         elQueOrdena = new TableRowSorter<>(modelo);
-        
+
     }
-    
+
     /**
-     * 
+     *
      * Agrega los datos de los Muebles a la tabla
+     *
      * @param query La consulta que se utilizará para conseguir los datos de los
      * muebles
      */
@@ -118,7 +118,7 @@ public class Administrar extends javax.swing.JFrame {
     }
 
     /**
-     * 
+     *
      * Limpia todos los campos de la pestaña agregar
      */
     public void limpiar() {
@@ -136,6 +136,7 @@ public class Administrar extends javax.swing.JFrame {
 
     /**
      * Realiza una consulta y obtiene los datos de los Muebles
+     *
      * @param query La consulta que se utilizará para los muebles
      * @return ArrayList de objetos Mueble
      */
@@ -167,9 +168,9 @@ public class Administrar extends javax.swing.JFrame {
         return lista;
     }
 
-    
     /**
      * Se utiliza para poder filtrar los mubles en tiempo real
+     *
      * @param filtro La palabra "Filtro" que se utiliza para la consulta
      * @return Consulta con la palbra para filtrar
      */
@@ -184,6 +185,7 @@ public class Administrar extends javax.swing.JFrame {
 
     /**
      * Agrega un nuevo mueble a la base de datos.
+     *
      * @param nombre Nombre del mueble
      * @param tipo Tipo de mueble
      * @param precio Precio del mueble
@@ -195,7 +197,7 @@ public class Administrar extends javax.swing.JFrame {
      * @param profundidad Profundidad (cm o m) del mueble
      * @param cantidad Existencias del mueble
      * @throws SQLException
-     * @throws ClassNotFoundException 
+     * @throws ClassNotFoundException
      */
     public void insertarMueble(String nombre, String tipo, String precio, String stock,
             String material, String color, String altura, String base, String profundidad, String cantidad)
@@ -216,9 +218,10 @@ public class Administrar extends javax.swing.JFrame {
 
     /**
      * Función que realiza un update válido cualquiera.
+     *
      * @param sQuery Sentencia del update
      * @throws ClassNotFoundException
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void update(String sQuery) throws ClassNotFoundException, SQLException {
         try {
@@ -234,8 +237,9 @@ public class Administrar extends javax.swing.JFrame {
 
     /**
      * Función que recupera el ID del último mueble agregado a la base de datos.
+     *
      * @return Retorna el ID del último mueble agregado.
-     * @throws SQLException 
+     * @throws SQLException
      */
     public int getIDMueble() throws SQLException {
         sQuery = "SELECT MAX(idMueble) FROM Mueble;";
@@ -256,10 +260,18 @@ public class Administrar extends javax.swing.JFrame {
         return 0;
     }
 
+    /**
+     * Localiza el número de la fila en que está posicionado el usuario.
+     * @return Número de la fila donde se encuentra el usuario.
+     */
     public int posicionTabla() {
         return jTable1.getSelectedRow();
     }
 
+    /**
+     * Crea un objeto tipo mueble con los datos relacionados a la posición de una fila de la tabla
+     * @return Objeto Mueble con los atributos de la fila seleccionada.
+     */
     public Mueble datosMueble() {
         Mueble mueble = new Mueble();
         mueble.setNombreMueble(jTable1.getValueAt(posicionTabla(), 0).toString());
@@ -275,14 +287,19 @@ public class Administrar extends javax.swing.JFrame {
         return mueble;
     }
 
+    /**
+     * Elimina un mueble de la base de datos.
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     public void eliminarMueble() throws ClassNotFoundException, SQLException {
         int idMueble = 0;
         int existenciasMueble = 0;
-        
+
         sQuery = "SELECT Mueble.idMueble, AlmacenGuardaMueble.existenciasAlmacen "
                 + "FROM Mueble, AlmacenGuardaMueble WHERE Mueble.idMueble = "
                 + "AlmacenGuardaMueble.Mueble_idMueble AND Mueble.nombreMueble "
-                + "= '" + nombreMueble +"' AND Mueble.colorMueble = '" + colorMueble + "';";
+                + "= '" + nombreMueble + "' AND Mueble.colorMueble = '" + colorMueble + "';";
 
         try {
             con = new Conexion().connection();
@@ -300,20 +317,20 @@ public class Administrar extends javax.swing.JFrame {
         }
 
         if (existenciasMueble == 0) {
-            int response = JOptionPane.showConfirmDialog(null, "¿Seguro que desea eliminar el mueble seleccionado?", "Eliminar", 
+            int response = JOptionPane.showConfirmDialog(null, "¿Seguro que desea eliminar el mueble seleccionado?", "Eliminar",
                     JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-            
-            if(response == JOptionPane.YES_OPTION) {
+
+            if (response == JOptionPane.YES_OPTION) {
                 sQuery = "DELETE FROM AlmacenGuardaMueble WHERE Mueble_idMueble "
-                    + "= " + idMueble + ";";
+                        + "= " + idMueble + ";";
                 update(sQuery);
                 sQuery = "DELETE FROM Mueble WHERE nombreMueble = '" + nombreMueble
-                    + "' AND colorMueble = '" + colorMueble + "';";
+                        + "' AND colorMueble = '" + colorMueble + "';";
                 update(sQuery);
                 rellenarTabla(inicial);
                 JOptionPane.showMessageDialog(null, "Mueble eliminado",
-                    "Éxito al eliminar",
-                    JOptionPane.INFORMATION_MESSAGE);
+                        "Éxito al eliminar",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "No se pueden eliminar muebles"
@@ -774,35 +791,35 @@ public class Administrar extends javax.swing.JFrame {
   private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
       Mueble mueble = datosMueble();
       EditarMueble em = new EditarMueble(this, true);
-      
+
       int idMueble = 0;
-      sQuery = "SELECT idMueble FROM Mueble WHERE nombreMueble = '" + mueble.getNombreMueble() + 
-              "' AND colorMueble = '" + mueble.getColorMueble() + "';";
+      sQuery = "SELECT idMueble FROM Mueble WHERE nombreMueble = '" + mueble.getNombreMueble()
+              + "' AND colorMueble = '" + mueble.getColorMueble() + "';";
 
-        try {
-            con = new Conexion().connection();
-            s = con.createStatement();
-            rs = s.executeQuery(sQuery);
+      try {
+          con = new Conexion().connection();
+          s = con.createStatement();
+          rs = s.executeQuery(sQuery);
 
-            if (rs != null && rs.next()) {
-                idMueble = rs.getInt("idMueble");
-            }
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(Administrar.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+          if (rs != null && rs.next()) {
+              idMueble = rs.getInt("idMueble");
+          }
+      } catch (ClassNotFoundException | SQLException ex) {
+          Logger.getLogger(Administrar.class.getName()).log(Level.SEVERE, null, ex);
+      } finally {
           try {
               con.close();
           } catch (SQLException ex) {
               Logger.getLogger(Administrar.class.getName()).log(Level.SEVERE, null, ex);
           }
-        }
-      em.llenarTF(idMueble, mueble.getNombreMueble(), mueble.getTipoMueble(), mueble.getPrecioMueble(), 
-              mueble.getStockMinimoMueble(), mueble.getMaterialMueble(), mueble.getColorMueble(), 
+      }
+      em.llenarTF(idMueble, mueble.getNombreMueble(), mueble.getTipoMueble(), mueble.getPrecioMueble(),
+              mueble.getStockMinimoMueble(), mueble.getMaterialMueble(), mueble.getColorMueble(),
               mueble.getAlturaMueble(), mueble.getBaseMueble(), mueble.getProfundidadMueble());
       em.setLocationRelativeTo(null);
       em.setVisible(true);
       rellenarTabla(inicial);
-      
+
   }//GEN-LAST:event_btEditarActionPerformed
 
   private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -837,7 +854,7 @@ public class Administrar extends javax.swing.JFrame {
       colorMueble = mueble.getColorMueble();
       btEliminar.setEnabled(true);
       btEditar.setEnabled(true);
-     
+
   }//GEN-LAST:event_jTable1MouseReleased
 
     private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
@@ -871,7 +888,7 @@ public class Administrar extends javax.swing.JFrame {
     }//GEN-LAST:event_regresarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        boolean bnombre, btipo, bprecio, bminimo, bmaterial, bcolor, balto, bancho, bprofundidad;
+        boolean bnombre, btipo, bprecio, bminimo, bmaterial, bcolor, balto, bancho, bprofundidad, bcantidad;
         bnombre = nombretf.getText().equals("");
         btipo = tipotf.getText().equals("");
         bprecio = preciotf.getText().equals("");
@@ -881,18 +898,24 @@ public class Administrar extends javax.swing.JFrame {
         balto = altotf.getText().equals("");
         bancho = anchotf.getText().equals("");
         bprofundidad = profundidadtf.getText().equals("");
+        bcantidad = cantidadtf.getText().equals("");
 
-        if (bnombre != true && btipo != true && bprecio != true && bminimo != true && bmaterial != true &&
-            bcolor != true && balto != true && bancho != true && bprofundidad != true) {
+        if (bnombre != true && btipo != true && bprecio != true && bminimo != true && bmaterial != true
+                && bcolor != true && balto != true && bancho != true && bprofundidad != true && bcantidad != true) {
 
-            try {
-                insertarMueble(nombretf.getText(), tipotf.getText(), preciotf.getText(),
-                    sminimotf.getText(), materialtf.getText(), colortf.getText(),
-                    altotf.getText(), anchotf.getText(), profundidadtf.getText(), cantidadtf.getText());
-                JOptionPane.showMessageDialog(this, "Los datos fueron agregados exitosamente", "'Exito", JOptionPane.INFORMATION_MESSAGE);
-                limpiar();
-            } catch (SQLException | ClassNotFoundException ex) {
-                System.out.println("Error");
+            if (Integer.parseInt(cantidadtf.getText()) > Integer.parseInt(sminimotf.getText())) {
+                try {
+                    insertarMueble(nombretf.getText(), tipotf.getText(), preciotf.getText(),
+                            sminimotf.getText(), materialtf.getText(), colortf.getText(),
+                            altotf.getText(), anchotf.getText(), profundidadtf.getText(), cantidadtf.getText());
+                    JOptionPane.showMessageDialog(this, "Los datos fueron agregados exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    limpiar();
+                } catch (SQLException | ClassNotFoundException ex) {
+                    System.out.println("Error");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pueden agregar menos "
+                        + "existencias que stock mínimo", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor complete todos los campos");

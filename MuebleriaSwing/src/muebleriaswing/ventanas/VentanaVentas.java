@@ -152,24 +152,6 @@ public class VentanaVentas extends javax.swing.JFrame {
     
   /**
    * 
-   * Comprueba que no se repita el mismo mueble en la venta
-   * @param idMueble id del mueble que se va a comprar
-   * @return true si el mueble está repetido y false si no lo está
-   */
-  private boolean repetidoEnTabla(int idMueble){
-    int filas = tablaVentas.getRowCount();    
-    
-    for(int i = 0; i < filas; i++) {
-      
-      if(MetodosUtiles.stringAInt((String) valorTabla(i, 0)) == idMueble) {
-        return true;
-      }
-    }
-    return false;
-  }
-    
-  /**
-   * 
    * Suma los precios de cada fila y después calcula el totoal
    */
   private void sumarPrecios () {
