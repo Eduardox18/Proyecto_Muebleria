@@ -23,6 +23,7 @@ import muebleriaswing.conexion.Conexion;
 public class LogIn extends javax.swing.JFrame {
 
     public static String usuario;
+    public static int idUsuario;
     private Connection con;
     private String sQuery;
     private static Statement s = null;
@@ -45,7 +46,7 @@ public class LogIn extends javax.swing.JFrame {
    * y false si el usuario no existe o no coinciden las contraseñas
    */
   private boolean logearse (String user, String pass) {
-      sQuery = "SELECT contrasenaUsuario FROM usuario WHERE nombreUsuario= '" + 
+      sQuery = "SELECT idUsuario, contrasenaUsuario FROM usuario WHERE nombreUsuario= '" + 
           user +"';";
         try {
             con = new Conexion().connection();
@@ -54,6 +55,7 @@ public class LogIn extends javax.swing.JFrame {
             
             if(rs.next() && rs != null) {
                 if(rs.getString("contrasenaUsuario").equals(pass)){
+                    idUsuario = rs.getInt("idUsuario");
                     return true;
                 }
                 else {
