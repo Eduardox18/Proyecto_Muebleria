@@ -915,7 +915,7 @@ public class Administrar extends javax.swing.JFrame {
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "No se pueden agregar menos "
-                        + "existencias que stock mínimo", "Error", JOptionPane.ERROR_MESSAGE);
+                        + "existencias que stock mínimo", "Error", JOptionPane.WARNING_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor complete todos los campos");
