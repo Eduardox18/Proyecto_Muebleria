@@ -390,7 +390,7 @@ public class Administrar extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -483,7 +483,7 @@ public class Administrar extends javax.swing.JFrame {
         limpiar.setFont(new java.awt.Font("Lucida Sans", 0, 13)); // NOI18N
         limpiar.setText("Limpiar");
         limpiar.setToolTipText("");
-        limpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        limpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 limpiarActionPerformed(evt);
@@ -492,7 +492,7 @@ public class Administrar extends javax.swing.JFrame {
 
         agregar.setFont(new java.awt.Font("Lucida Sans", 0, 13)); // NOI18N
         agregar.setText("Agregar");
-        agregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        agregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 agregarActionPerformed(evt);
@@ -501,7 +501,7 @@ public class Administrar extends javax.swing.JFrame {
 
         regresar.setFont(new java.awt.Font("Lucida Sans", 0, 13)); // NOI18N
         regresar.setText("Regresar");
-        regresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        regresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         regresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 regresarActionPerformed(evt);
@@ -676,7 +676,7 @@ public class Administrar extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         btEditar.setText("Editar");
-        btEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btEditar.setEnabled(false);
         btEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -685,7 +685,7 @@ public class Administrar extends javax.swing.JFrame {
         });
 
         btEliminar.setText("Eliminar");
-        btEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btEliminar.setEnabled(false);
         btEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -694,7 +694,7 @@ public class Administrar extends javax.swing.JFrame {
         });
 
         bRegresar.setText("Regresar");
-        bRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bRegresarActionPerformed(evt);
@@ -782,7 +782,7 @@ public class Administrar extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
         pack();
