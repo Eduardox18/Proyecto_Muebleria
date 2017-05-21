@@ -54,7 +54,7 @@ public class VentanaVentas extends javax.swing.JFrame {
     agregarFila();
     lSubtotal.setText("0");
     lTotal.setText("0");
-    lIva.setText(MetodosUtiles.dobleAString(IVA));  
+    lIva.setText("16%");  
     jLabelFecha.setText(obtenerFecha());
   }
     
